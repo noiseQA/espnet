@@ -249,8 +249,6 @@ if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
         ${recog_opts}
 
     echo ""
-    recog_text=$(grep rec_text ${decode_dir}/result.json | sed -e 's/.*: "\(.*\)".*/\1/' | sed -e 's/<eos>//')
-    echo "Recognized text: ${recog_text}"
-    echo ""
+    json2text_wodict.py ${decode_dir}/result.json ${base} > ${decode_dir}/${base}_text
     echo "Finished"
 fi

@@ -19,6 +19,7 @@ def get_parser():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument("json", type=str, help="json files")
+    parser.add_argument("base", type=str, help="base name")
     return parser
 
 if __name__ == "__main__":
@@ -28,9 +29,12 @@ if __name__ == "__main__":
         j = json.load(f)
 
     for idx in range(1,len(j["utts"])+1):
-        x = "noise-" + str(idx)
-        seq = j["utts"][x]["output"][0]["rec_text"]
-        seq = seq.replace(u"\u2581", u" ")
-        seq = seq.replace("<eos>", "")
-        seq = re.sub(' +', ' ',seq).lstrip(" ")
-        print(seq)
+        x = args.base + "-" + str(idx)
+        try:
+            seq = j["utts"][x]["output"][0]["rec_text"]
+            seq = seq.replace(u"\u2581", u" ")
+            seq = seq.replace("<eos>", "")
+            seq = re.sub(' +', ' ',seq).lstrip(" ")
+        except:
+            seq = ""
+        print(x + " " + seq)
