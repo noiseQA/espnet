@@ -37,4 +37,4 @@ if __name__ == "__main__":
             seq = re.sub(' +', ' ',seq).lstrip(" ")
         except:
             seq = ""
-        print(x + " " + seq)
+        print(seq)
